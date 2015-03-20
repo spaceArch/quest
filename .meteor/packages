@@ -5,5 +5,15 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
+coffeescript
+mizzao:bootstrap-3
+less
+jquery
+iron:router
+chrismbeckett:fontawesome4
+mrt:moment
+sacha:spin
+accounts-password
+ian:accounts-ui-bootstrap-3
+http
+multiply:iron-router-progress
