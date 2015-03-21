@@ -55,11 +55,10 @@ initMap = function(){
   // // set the view on a marker ...
   map.setView(rc.unproject([img[0]/2, img[1]/2]), 8);
 
-  var quest_url = Router.path('questPage', {quest_id: this.data._id})
   // the tile layer containing the image generated with gdal2tiles --leaflet ...
   var layer = L.tileLayer('http://188.226.222.86/store/test_quest/tiles/large/{z}/{x}/{y}.png', {
     noWrap: true,
-    attribution: "<a href=\""+quest_url+"\">"+this.data.quest_title+"</a>"
+    attribution: this.data.quest_title
   })
   layer.addTo(map);
   LAYER = layer.getContainer();
