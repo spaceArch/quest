@@ -35,5 +35,7 @@ Meteor.methods({
     });
 
     QuestRepo.insert(quest);
+
+    console.log(quest);
   }
 });

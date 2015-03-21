@@ -11,6 +11,15 @@ var images = [];
 
 Template.addQuest.created = function() {
   Uploader.uploadUrl = Meteor.absoluteUrl("upload");
+
+  Uploader.getDirectory = function(info, data) {
+    var path = Npm.require('path');
+    var questId = data.questId;
+    var dir = path.join('quest_' + questId, 'images');
+
+    return dir;
+  }
+
   Session.set("questId", makeid());
 };
 
@@ -26,6 +35,11 @@ Template.addQuest.helpers({
         images.push(fileInfo);
       }
     }
+  },
+  formData: function() {
+    return {
+      questId: Session.get('questId')
+    }
   }
 });
 
@@ -33,7 +47,7 @@ Template.addQuest.events({
   'submit form': function (e) {
     e.preventDefault();
 
-    console.log('submit form!');    
+    console.log('submit form!');
     console.log('uploadedImages', images);
 
     var questTitle = $(e.target).find('[name=titleQuest]').val(),
@@ -47,7 +61,7 @@ Template.addQuest.events({
       autor_id: Meteor.userId(),
       created_at: new Date().getTime()
     }
-    
+
     console.log('quest ' , quest);
 
     Meteor.call('addQuest', quest, function (error, result) {
@@ -55,7 +69,8 @@ Template.addQuest.events({
         return alert(error.reason);
       }
       else {
-        Router.go('questPage', {quest_id: Session.get('questId')});
+        var questId = Session.get('questId');
+        Router.go('questPage', {quest_id: questId});
       }
     });
 
