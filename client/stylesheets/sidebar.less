@@ -1,11 +1,12 @@
 .sidebar {
   position: absolute;
   top: 0px;
-  right: -360px;
-  width: 360px;
+  right: -40%;
+  width: 40%;
   height: 100vh;
   background-color: #ddd;
   transition: right .25s ease;
+  overflow: auto;
 
   &.expanded {
     right: 0px;
@@ -17,25 +18,31 @@
     h3 {
       margin-top: 0;
     }
-  }
+  }  
+}
 
-  .toggle-sidebar {
-    position: absolute;
-    left: -50px;
-    top: 0;
+.toggle-sidebar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #888;
+  cursor: pointer;
+  transition: right .25s ease;
+
+  .fa {
+    line-height: 50px;
+    text-align: center;
     width: 50px;
-    height: 50px;
-    background-color: #888;
-    cursor: pointer;
-
-    .fa {
-      line-height: 50px;
-      text-align: center;
-      width: 50px;
-      font-size: 30px;
-      color: #fff;
-    }
+    font-size: 30px;
+    color: #fff;
   }
+
+  &.expanded {
+    right: 40%;
+  }
+
 }
 
 .comment-section {

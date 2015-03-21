@@ -14,9 +14,13 @@ Template.questPage.helpers({
 
 Template.questPage.events({
   'click .toggle-sidebar': function (e) {
-    if ($('.sidebar').hasClass("expanded"))
+    if ($('.sidebar').hasClass("expanded")) {
+      $('.toggle-sidebar').removeClass("expanded");
       $('.sidebar').removeClass("expanded");
-    else 
+    }
+    else {
+      $('.toggle-sidebar').addClass("expanded");
       $('.sidebar').addClass("expanded")
+    }
   },
 });
