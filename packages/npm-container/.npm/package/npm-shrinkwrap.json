@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "space_lib": {
-      "version": "https://github.com/spaceArch/space_lib/archive/313c6e2d9b408beb207baca117affce83f25e2b5.tar.gz",
+      "version": "https://github.com/spaceArch/space_lib/archive/563b248827d657bff9574e984f9e53bf03cea79d.tar.gz",
       "dependencies": {
         "image-size": {
           "version": "0.3.5"

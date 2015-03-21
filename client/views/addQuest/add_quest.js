@@ -64,6 +64,8 @@ Template.addQuest.events({
         return alert(error.reason);
       }
       else {
+        images = [];
+
         var questId = Session.get('questId');
         Router.go('questPage', {quest_id: questId});
       }

@@ -18,7 +18,6 @@ Quests.allow({
   }
 });
 
-
 Meteor.methods({
   addQuest: function(quest) {
     var user = Meteor.user(),
@@ -34,6 +33,8 @@ Meteor.methods({
         created_at: new Date().getTime()
     });
 
-    QuestRepo.insert(quest);
+    Quests.insert(quest, function(err, res) {
+      Meteor.call('processImages', quest);
+    });
   }
 });
