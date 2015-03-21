@@ -7,6 +7,13 @@ Meteor.startup(function () {
   UploadServer.init({
     tmpDir: tmp,
     uploadDir: store,
-    checkCreateDirectories: true
+    checkCreateDirectories: true,
+    getDirectory: function(info, data) {
+      var path = Npm.require('path');
+      var questId = data.questId;
+      var dir = path.join('quest_' + questId, 'images');
+
+      return dir;
+    }
   })
 });
