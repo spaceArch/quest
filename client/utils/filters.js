@@ -1,76 +1,49 @@
-L.FilterControls = L.Control.extend({
-  options: {
-    position: 'bottomleft'
+F = {
+  getFilterString: function(filters, query){
+    var start = filters.indexOf(query);
+    var end = 1 + filters.indexOf(")", start);
+    return filters.substring(start, end);
   },
 
-  onAdd: function (map) {
-    var controlDiv = L.DomUtil.create('div', 'map-filters', map.getContainer());
-    var layerElem = this.options.layer.getContainer();
-    this._createSlider('contrast', controlDiv, layerElem, .1, 4);
-    this._createSlider('brightness', controlDiv, layerElem, .1, 4);
-    // this._createSlider('saturate', controlDiv, layerElem, .1, 4);
-    // this._createSlider('invert', controlDiv, layerElem, 0, 1, 0);
-    // this._createSlider('grayscale', controlDiv, layerElem, 0, 1, 0);
-
-    L.DomEvent
-      .addListener(controlDiv, 'mouseover', function () {
-                map.dragging.disable();
-              })
-      .addListener(controlDiv, 'mouseout', function () {
-                map.dragging.enable();
-              })
-    return controlDiv;
+  getAllFilters: function(elem){
+    return  elem.style.filter ||
+            elem.style.webkitFilter ||
+            elem.style.OFilter ||
+            elem.style.mozFilter ||
+            elem.style.msFilter;
   },
 
-  _createSlider: function(filterName, root, layerElem, min, max, initial){
-    var slider = L.DomUtil.create('input', 'map-filters__slider map-filters__slider-'+filterName, root);
-    initial = getIinitialFromProfile(filterName);
-    initial = (initial === undefined)?1:initial;
+  setAllFilters: function(elem, filters){
+    elem.style.filter = filters;
+    elem.style.webkitFilter = filters;
+    elem.style.OFilter = filters;
+    elem.style.mozFilter = filters;
+    elem.style.msFilter = filters;
+  },
 
-    slider.type = 'range';
-    slider.min = min;
-    slider.max = max;
-    slider.value = initial
-    slider.step = .03;
-    slider.title = filterName;
-    var lastFilter = filterName + "(" + initial + ")";
-    var newFilter = '';
-    layerElem.style.webkitFilter += lastFilter;
+  updateFilter: function(layerElem, name, value){
+    allFilters = F.getAllFilters(layerElem);
+    lastFilter = F.getFilterString(allFilters, name);
+    newFilter = name + "(" + value + ")";
+    newAllFilters = allFilters.replace(lastFilter, newFilter)
+    F.setAllFilters(layerElem, newAllFilters);
+    F.setToProfile(newAllFilters);
+  },
 
-
-    updateFilter = function(){
-      setIinitialFromProfile(filterName, slider.value);
-      newFilter = filterName + "(" + slider.value + ")";
-      layerElem.style.webkitFilter = layerElem.style.webkitFilter.replace(lastFilter, newFilter);
-      lastFilter = newFilter;
+  getFromProfile: function (){
+    try {
+      return Meteor.user().profile.filters;
+    } catch(e){
+      return undefined
     }
+  },
 
-    reset = function(){
-      slider.value = initial;
-      slider.dispatchEvent(new Event('change'));
-    }
+  setToProfile: function (val){
+    Meteor.users.update(Meteor.userId(), { $set: {'profile.filters': val} });
+  },
 
-    L.DomEvent.addListener(slider, 'mousemove', updateFilter);
-    L.DomEvent.addListener(slider, 'change', updateFilter);
-
-    return {
-      elem: slider,
-      reset: reset
-    };
-  }
-});
-
-getIinitialFromProfile = function (filterName){
-  try {
-    return Meteor.user().profile.filter[filterName];
-  } catch(e){
-    return undefined
-  }
-}
-
-setIinitialFromProfile = function (filterName, val){
-  var filterProfPath = 'profile.filter.'+filterName;
-  fields = {};
-  fields[filterProfPath] = val;
-  Meteor.users.update(Meteor.userId(), { $set: fields })
-}
+  getIinitialFilter: function (name){
+    allFilters =F.getFromProfile();
+    return F.getFilterString(allFilters, name).match(/\d+\.?\d*/)[0];
+  },
+};
