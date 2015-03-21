@@ -12,8 +12,6 @@ var images = [];
 Template.addQuest.created = function() {
   Uploader.uploadUrl = Meteor.absoluteUrl("upload");
   Session.set("questId", makeid());
-
-  console.log('make id', Session.get("questId"));
 };
 
 Template.addQuest.helpers({
@@ -52,8 +50,7 @@ Template.addQuest.events({
         return alert(error.reason);
       }
       else {
-        console.log('Quest added!');
-        // goto quest page
+        Router.go('questPage', {quest_id: Session.get('questId')});
       }
     });
 
