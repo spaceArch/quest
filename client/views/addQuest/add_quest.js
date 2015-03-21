@@ -14,6 +14,11 @@ Template.addQuest.created = function() {
   Session.set("questId", makeid());
 };
 
+Template.addQuest.rendered = function() {
+  $('.toggle-navbar').addClass("hide");
+  $('.navbar').addClass("expanded");
+};
+
 Template.addQuest.helpers({
   uploadingImages: function() {
     return {
