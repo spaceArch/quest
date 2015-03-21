@@ -1,0 +1,38 @@
+.map {
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+}
+
+.map-filters {
+  background: rgba(255,255,255,03);
+  padding: 1em;
+  width: 16em;
+}
+
+.map-filters__slider {
+	margin-left: 1.6em;
+	width: 85% !important;
+}
+
+.map-filters__slider::before {
+	position: relative;
+	left: -1.5em;
+}
+
+.map-filters__slider-contrast::before {
+	content: '◐';
+}
+.map-filters__slider-brightness::before {
+	content: '🔆';
+}
+.map-filters__slider-saturate::before {
+	content: '🎨';
+}
+.map-filters__slider-invert::before {
+	content: '◣';
+}
+.map-filters__slider-grayscale::before {
+	content: '👥';
+}
