@@ -1,9 +1,14 @@
 accounts-base@1.1.3
 accounts-password@1.0.6
+aldeed:collection2@2.2.0
+aldeed:simple-schema@1.2.0
+aldeed:template-extension@3.1.1
 anti:i18n@0.4.3
 application-configuration@1.0.4
+arkham:comments-ui@0.2.3
 autoupdate@1.1.5
 base64@1.0.2
+bengott:avatar@0.7.2
 binary-heap@1.0.2
 blaze@2.0.4
 blaze-tools@1.0.2
@@ -12,11 +17,13 @@ callback-hook@1.0.2
 check@1.0.4
 chrismbeckett:fontawesome4@4.2.2
 coffeescript@1.0.5
+dburles:collection-helpers@1.0.1
 ddp@1.0.14
 deps@1.0.6
 ejson@1.0.5
 email@1.0.5
 fastclick@1.0.2
+flamparski:moment-locales@0.0.3
 follower-livedata@1.0.3
 geojson-utils@1.0.2
 handlebars@1.0.2
@@ -33,6 +40,9 @@ iron:location@1.0.7
 iron:middleware-stack@1.0.7
 iron:router@1.0.7
 iron:url@1.0.7
+jparker:crypto-core@0.1.0
+jparker:crypto-md5@0.1.1
+jparker:gravatar@0.3.1
 jquery@1.11.3
 json@1.0.2
 launch-screen@1.0.1
@@ -47,6 +57,7 @@ minimongo@1.0.6
 mizzao:bootstrap-3@3.3.1_1
 mobile-status-bar@1.0.2
 mongo@1.0.11
+mongo-livedata@1.0.7
 mrt:moment@2.8.1
 multiply:iron-router-progress@1.0.1
 npm-bcrypt@0.7.7
@@ -57,6 +68,7 @@ reactive-dict@1.0.5
 reactive-var@1.0.4
 reload@1.1.2
 retry@1.0.2
+reywood:publish-composite@1.3.5
 routepolicy@1.0.4
 sacha:spin@2.0.4
 service-configuration@1.0.3
