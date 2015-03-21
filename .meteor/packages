@@ -7,7 +7,6 @@
 meteor-platform
 coffeescript
 mizzao:bootstrap-3
-less
 jquery
 iron:router
 chrismbeckett:fontawesome4
@@ -22,3 +21,5 @@ tomi:upload-server
 arkham:comments-ui
 meteorhacks:npm
 npm-container
+iamthemuffinman:bootstrap-darkly
+lauricio:less-autoprefixer
