@@ -53,7 +53,7 @@ initMap = function(){
   rc.setMaxBounds();
 
   // // set the view on a marker ...
-  map.setView(rc.unproject([0, 0]), 0);
+  map.setView(rc.unproject([img[0]/2, img[1]/2]), 8);
 
   var quest_url = Router.path('questPage', {quest_id: this.data._id})
   // the tile layer containing the image generated with gdal2tiles --leaflet ...
