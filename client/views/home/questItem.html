@@ -3,5 +3,11 @@
     <div class="col-md-12">
       <a href="{{pathFor 'questPage' quest_id=this.quest_id }}">{{quest_title}}</a>
     </div>
+    <div class="col-md-12">
+      {{quest_summary}}
+    </div>
+    <div class="col-md-12">
+      Cteated at {{getDateTime created_at}}
+    </div>
   </div>
 </template>
