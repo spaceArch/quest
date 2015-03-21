@@ -8,7 +8,9 @@ Template.questPage.created = function() {
 
 Template.questPage.rendered = function() {
   $('.toggle-navbar').removeClass("hide");
+  $('.map-filters').removeClass("hide");
   $('.navbar').removeClass("expanded");
+  $('body').addClass("map-view");
   initMap.call(this);
 };
 
