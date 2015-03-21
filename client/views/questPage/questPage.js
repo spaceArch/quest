@@ -28,7 +28,7 @@ Template.questPage.events({
       $('.toggle-sidebar').addClass("expanded");
       $('.sidebar').addClass("expanded")
     }
-  },
+  }
 });
 
 initMap = function(){

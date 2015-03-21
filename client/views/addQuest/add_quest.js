@@ -62,8 +62,6 @@ Template.addQuest.events({
         return alert(error.reason);
       }
       else {
-        images = [];
-        Meteor.call('processImages', quest);
         var questId = Session.get('questId');
         Router.go('questPage', {quest_id: questId});
       }
