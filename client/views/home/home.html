@@ -1,7 +1,9 @@
 <template name='home'>
-  <h2>Welcome!</h2>
-  <h3>Quests list</h3>
-  {{#each questsList}}
-    {{> questItem}}
-  {{/each}}
+  <div class="content-wrapper">
+    <h2>Welcome!</h2>
+
+    {{#each questsList}}
+      {{> questItem}}
+    {{/each}}
+  </div>  
 </template>

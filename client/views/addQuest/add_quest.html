@@ -1,19 +1,21 @@
 <template name='addQuest'>
-  <h2>Add new quest!</h2>
+  <div class="content-wrapper">
+    <h2>Add new quest!</h2>
 
-  <form action="" role="form">
-    <div class="form-group">
-      <label>Title</label>
-      <input type="text" class="form-control" name="titleQuest">
-    </div>
-    <div class="form-group">
-      <label>Summary</label>
-      <textarea class="form-control" name="summaryQuest"></textarea>
-    </div>
-    <div class="form-group">
-      {{> upload_bootstrap multiple=true callbacks=uploadingImages }}
-    </div>
+    <form action="" role="form">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" name="titleQuest">
+      </div>
+      <div class="form-group">
+        <label>Summary</label>
+        <textarea class="form-control" name="summaryQuest"></textarea>
+      </div>
+      <div class="form-group">
+        {{> upload_bootstrap multiple=true callbacks=uploadingImages }}
+      </div>
 
-    <button type="submit" class="btn btn-primary">Create!</button>
-  </form>
+      <button type="submit" class="btn btn-primary">Create!</button>
+    </form>
+  </div>
 </template>
