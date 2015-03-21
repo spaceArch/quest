@@ -1,4 +1,6 @@
 MAP = {
+  _map: null,
+  _rc: null,
   _moveCallback: null,
 
   initMap: function(image, attribution){
@@ -13,9 +15,7 @@ MAP = {
 
     var rc = new L.RasterCoords(map, [ image.width, image.height]);
     rc.setMaxBounds();
-
-    // pan to coords
-    map.setView(rc.unproject([image.width/2, image.height/2]), 8);
+    MAP._rc = rc;
 
     // the tile layer containing the image generated with gdal2tiles --leaflet ...
     url_tmp = 'http://188.226.222.86/store/'+image.name+'/tiles/large/{z}/{x}/{y}.png'
@@ -24,14 +24,14 @@ MAP = {
       attribution: attribution
     })
     layer.addTo(map);
-    LAYER = layer.getContainer();
+    LAYER = layer;
     MAP._map = map;
     movedHandler = function(){
       if(MAP._moveCallback) {
         var point = rc.project(map.getCenter());
         var x = Math.round(point.x);
         var y = Math.round(point.y);
-        MAP._moveCallback(x, y);
+        MAP._moveCallback(map.getZoom(), x, y);
       }
     };
     map.on('move', _.debounce(movedHandler, 100));
@@ -39,11 +39,14 @@ MAP = {
   },
 
   applyFilters: function(){
-    F.setAllFilters(LAYER, F.getFromProfile() || 'contrast(1) brightness(1)');
+    F.setAllFilters(LAYER.getContainer(), F.getFromProfile() || 'contrast(1) brightness(1)');
+  },
+
+  panTo: function(zoom, x, y){
+    MAP._map.setView(MAP._rc.unproject([+x, +y]), +zoom);
   },
 
   onMoved: function(callback){
     MAP._moveCallback = callback;
   }
-
 }

@@ -32,16 +32,20 @@ Template.questPage.events({
 });
 
 initMap = function(){
-  map = MAP.initMap({
+  var quest_id = this.data.quest_id;
+  image = {
     name:'test_quest',
     width: 19424,
     height: 5249,
     minZoom: 2,
     maxZoom: 9
-  }, this.data.quest_title);
+  }
+  map = MAP.initMap(image, this.data.quest_title);
+  var c = Router.current()
+  MAP.panTo(c.params.zoom || 8, c.params.x || image.width/2, c.params.y || image.height/2 );
 
-  MAP.applyFilters()
-  MAP.onMoved(function(x,y){
-    console.log(x+','+y);
+  MAP.onMoved(function(zoom,x,y){
+    history.pushState({}, "", '/quest/' + quest_id + '/' + zoom + '/' + image.name + '/' + x + '/' + y);
   });
+  MAP.applyFilters()
 }

@@ -30,7 +30,7 @@
 
   _updateFilters = function(e){
     var layerElem = LAYER;
-    F.updateFilter(layerElem, this.name, e.target.value);
+    F.updateFilter(layerElem.getContainer(), this.name, e.target.value);
   };
   updateFilters = _.debounce(_updateFilters, 16);
 
