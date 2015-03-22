@@ -1,11 +1,17 @@
 <template name='home'>
   <div class="content-wrapper">
     <h2 class="center">Here are your quests</h2>
+    
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <a href="{{pathFor 'addQuest'}}" class="btn btn-primary btn-lg">Create new quest</a>
+      </div>
+    </div>
 
-    <a href="{{pathFor 'addQuest'}}" class="btn btn-primary btn-lg">Create new quest</a>
-
-    {{#each questsList}}
-      {{> questItem}}
-    {{/each}}
+    <div class="row">
+      {{#each questsList}}
+        {{> questItem}}
+      {{/each}}
+    </div>
   </div>
 </template>
