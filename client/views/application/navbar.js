@@ -5,12 +5,7 @@ Template.navbar.helpers({
 });
 
 Template.navbar.events({
-  'click .toggle-navbar': function (e) {
-    if ($('.navbar').hasClass("expanded")) {
-      $('.navbar').removeClass("expanded");
-    }
-    else {
-      $('.navbar').addClass("expanded")
-    }
+  'click .toggle-navbar': function () {
+    UIRepo.toggleNavbar();
   },
 });
