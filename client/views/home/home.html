@@ -1,12 +1,14 @@
 <template name='home'>
   <div class="content-wrapper">
-    <h2 class="center">Here are your quests</h2>
+    <h2 class="center uppercase">Here are your quests</h2>
     
+    <br>
     <div class="row">
-      <div class="col-sm-12 col-md-12">
-        <a href="{{pathFor 'addQuest'}}" class="btn btn-primary btn-lg">Create new quest</a>
+      <div class="col-sm-12 col-md-12 center">
+        <a href="{{pathFor 'addQuest'}}" class="btn btn-primary btn-lg uppercase">Create new quest</a>
       </div>
     </div>
+    <br>
 
     <div class="row">
       {{#each questsList}}

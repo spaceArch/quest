@@ -16,10 +16,7 @@ Template.addQuest.created = function() {
 };
 
 Template.addQuest.rendered = function() {
-  $('.toggle-navbar').addClass("hide");
-  $('.map-filters').addClass("hide");
-  $('.navbar').addClass("expanded");
-  $('body').removeClass("map-view");
+  UIRepo.changeContentView(false);
   images = [];
 };
 

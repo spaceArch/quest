@@ -7,10 +7,7 @@ Template.questSeek.created = function() {
 };
 
 Template.questSeek.rendered = function() {
-  $('.toggle-navbar').removeClass("hide");
-  $('.map-filters').removeClass("hide");
-  $('.navbar').removeClass("expanded");
-  $('body').addClass("map-view");
+  UIRepo.changeContentView(true);
   initMap.call(this);
 };
 
@@ -22,14 +19,7 @@ Template.questSeek.helpers({
 
 Template.questSeek.events({
   'click .toggle-sidebar': function (e) {
-    if ($('.sidebar').hasClass("expanded")) {
-      $('.toggle-sidebar').removeClass("expanded");
-      $('.sidebar').removeClass("expanded");
-    }
-    else {
-      $('.toggle-sidebar').addClass("expanded");
-      $('.sidebar').addClass("expanded")
-    }
+    UIRepo.toggleSidebar();
   }
 });
 
