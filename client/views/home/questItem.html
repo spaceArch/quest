@@ -1,6 +1,9 @@
 <template name='questItem'>
   <div class="col-sm-6 col-md-4">
-    <div class="thumbnail quest-item">      
+    <div class="thumbnail quest-item">
+      {{#if quest_images}}
+        <img src="{{linkToThumb quest_images}}" alt="">
+      {{/if}}
       <div class="caption">
         <div class="col-md-12 quest-item__title">
           <a href="{{pathFor 'questPage' quest_id=this.quest_id }}">{{quest_title}}</a>
