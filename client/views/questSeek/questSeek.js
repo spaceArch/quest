@@ -79,7 +79,7 @@ initMap = function(){
 
 }
 
-function heatmap(quest_id, image_name) {
+heatmap = function(quest_id, image_name) {
   var images = QuestRepo.findOne({quest_id: quest_id}).quest_images;
 
   var image = images.filter(function(img) {
@@ -102,7 +102,10 @@ putCircles = function(){
 
   if(!file_name && !quest_id) return
 
-  heatmap(quest_id, file_name);
+
+  if(window.enable_heatmap) {
+    heatmap(quest_id, file_name);
+  }
 
   Findings.find({quest_id: quest_id, file_name: file_name})
     .fetch()

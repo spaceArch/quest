@@ -153,11 +153,11 @@ MAP = {
 
     MAP._map.addLayer(heatmapLayer);
 
-    setTimeout(function() {
-      heatmapLayer.setData({
-        max: 8,
-        data: heatmap_data
-      });
-    }, 2000);
+    // setTimeout(function() {
+    //   heatmapLayer.setData({
+    //     max: 8,
+    //     data: heatmap_data
+    //   });
+    // }, 2000);
   }
 }
