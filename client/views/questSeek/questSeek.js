@@ -13,7 +13,10 @@ Template.questSeek.rendered = function() {
 
 Template.questSeek.helpers({
   pageId: function () {
-    return Session.get('questId');
+    id = '' + Session.get('questId');
+    id += Session.get('image_name');
+    id += Session.get('currentFinding');
+    return id;
   }
 });
 
@@ -28,6 +31,7 @@ initMap = function(){
   var c = Router.current()
   var all_images = this.data.quest_images;
   var img = _.findWhere(all_images, {name: c.params.file_name});
+  Session.set('image_name', img.name);
   image = {
     name: img.name,
     width: img.width,
@@ -40,27 +44,54 @@ initMap = function(){
 
   MAP.panTo(c.params.zoom || img.maxZoom, c.params.x || image.width/2, c.params.y || image.height/2 );
 
+  var rc = new L.RasterCoords(map, [ image.width, image.height]);
+
   MAP.onMoved(function(zoom,x,y){
     history.pushState({}, "", '/quest/' + quest_id + '/' + zoom + '/' + image.name + '/' + x + '/' + y);
+    HeatmapMoveHandler.handle({
+      zoom: zoom,
+      x: x,
+      y: y,
+      image: image.name,
+      quest_id: quest_id,
+      rc: rc
+    });
   });
   MAP.applyFilters()
 
   // drawing only for registered
   if(Meteor.user().profile) {
     MAP.initDrawControls()
-    MAP.onDrawed(function(GeoJSON){
+    MAP.onDrawed(function(data){
       Meteor.call('addFinding', {
-        geojson: JSON.stringify(GeoJSON),
+        geojson: JSON.stringify(data.geojson),
         quest_id: quest_id,
-        file_name: img.name
+        file_name: img.name,
+        preview: data.preview,
+        x: data.x,
+        y: data.y,
+        zoom: data.zoom
       });
     });
   }
 
-  // load findings
-  Findings.find({quest_id: quest_id, file_name: img.name})
+  putCircles();
+
+}
+
+putCircles = function(){
+  var file_name = Session.get('image_name');
+  var quest_id = Session.get('questId');
+
+  if(!file_name && !quest_id) return
+
+  Findings.find({quest_id: quest_id, file_name: file_name})
     .fetch()
     .forEach(function(finding){
       MAP.putFinding(finding.geojson);
     });
 }
+// load findings
+Tracker.autorun(function () {
+  putCircles()
+});

@@ -1,5 +1,9 @@
 F = {
   getFilterString: function(filters, query){
+    if(!filters) {
+      return "";
+    }
+
     var start = filters.indexOf(query);
     var end = 1 + filters.indexOf(")", start);
     return filters.substring(start, end);
@@ -44,6 +48,13 @@ F = {
 
   getIinitialFilter: function (name){
     allFilters =F.getFromProfile();
-    return F.getFilterString(allFilters, name).match(/\d+\.?\d*/)[0];
+    var match = F.getFilterString(allFilters, name).match(/\d+\.?\d*/);
+
+    if(!match) {
+      return
+    }
+    else {
+      return match[0];
+    }
   },
 };

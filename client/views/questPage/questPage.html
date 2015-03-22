@@ -7,7 +7,7 @@
         <li><a href="#findings-tab">Findings</a></li>
         <li><a href="#emmission-tab">Emission control</a></li>
       </ul>
-      
+
       <br>
 
       <div class="tab-content">
@@ -27,6 +27,9 @@
 
         <div role="tabpanel" class="tab-pane fade" id="findings-tab">
           <p>findings</p>
+          {{#each findings}}
+            {{>finding}}
+          {{/each}}
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="emmission-tab">

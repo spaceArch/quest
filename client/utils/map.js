@@ -30,6 +30,7 @@ MAP = {
       attribution: attribution
     })
     layer.addTo(map);
+    MAP._img_layer = layer;
     LAYER = layer;
     MAP._map = map;
     movedHandler = function(){
@@ -41,6 +42,9 @@ MAP = {
       }
     };
     map.on('move', _.debounce(movedHandler, 100));
+
+    MAP.initHeatmap(image.quest_id, image.name);
+
     return map;
   },
 
@@ -80,15 +84,31 @@ MAP = {
 
     MAP._map.on('draw:created', function (e) {
       var type = e.layerType,
-          layer = e.layer;
+          layer = e.layer,
+          point = MAP._rc.project(e.layer.getLatLng()),
+          x = Math.round(point.x),
+          y = Math.round(point.y),
+          zoom = MAP._map.getZoom(),
+          preview_point = e.target.getPixelOrigin();
+
+      preview_point = preview_point.divideBy(Math.pow(2,zoom+4)).round();
+      preview_point.z = zoom-1;
+      var tileUrl = MAP._img_layer.getTileUrl(preview_point);
 
       layer.bindPopup('A popup!');
 
       // Do whatever else you need to. (save to db, add to map etc)
       map.addLayer(layer);
-      GEOJSON = layer.toGeoJSON()
-      GEOJSON.properties.radius = layer.getRadius()
-      MAP._drawCallback(GEOJSON);
+      GEOJSON = layer.toGeoJSON();
+      GEOJSON.properties.radius = layer.getRadius();
+      // debugger
+      MAP._drawCallback({
+        geojson: GEOJSON,
+        preview: tileUrl,
+        x: x,
+        y: y,
+        zoom: zoom
+      });
   });
   },
 
@@ -104,4 +124,33 @@ MAP = {
       }
     }).addTo(MAP._map);
   },
+
+  initHeatmap: function(quest_id, image_name) {
+    var images = Quests.findOne({quest_id: quest_id}).quest_images;
+
+    var image = images.filter(function(img) {
+      return img.name === image_name;
+    })[0];
+
+    var heatmap_data = image.heatmap_data;
+
+    var cfg = {
+      "radius": 2,
+      "maxOpacity": .8,
+      "scaleRadius": true,
+      "useLocalExtrema": true,
+      latField: 'lat',
+      lngField: 'lng',
+      valueField: 'count'
+    };
+
+    var heatmapLayer = new HeatmapOverlay(cfg);
+
+    MAP._map.addLayer(heatmapLayer);
+
+    heatmapLayer.setData({
+      max: 8,
+      data: heatmap_data
+    });
+  }
 }
