@@ -2,12 +2,12 @@
   <div class="content-wrapper">
     <h2 class="center uppercase">{{quest_title}}</h2>
 
-  {{#unless tilesPath}}
-    loading...
-    {{>spinner}}
-  {{/unless}}
-
   {{#each quest_images}}
+    {{#unless tilesPath}}
+      loading...
+      {{>spinner}}
+    {{/unless}}
+
     <h4 class="image_name">{{name}}</h4>
     <a class="image_preview" href="{{pathFor 'questSeek' quest_id=../quest_id zoom=maxZoom file_name=name x=0 y=0}}">
       <img src="/{{previewPath}}" alt>
