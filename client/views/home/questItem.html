@@ -2,7 +2,9 @@
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail quest-item">
       {{#if quest_images}}
-        <img src="{{linkToThumb quest_images}}" alt="">
+        <a href="{{pathFor 'questPage' quest_id=this.quest_id }}">
+          <img src="{{linkToThumb quest_images}}" alt="">
+        </a>
       {{/if}}
       <div class="caption">
         <div class="col-md-12 quest-item__title">
@@ -10,7 +12,7 @@
         </div>
         <div class="col-md-12 quest-item__summary">
           {{quest_summary}}
-        </div>        
+        </div>
         <div class="col-md-12 quest-item__datetime">
           <i class="fa fa-calendar"></i> {{getDateTime created_at}}
         </div>
