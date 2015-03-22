@@ -10,8 +10,8 @@ HeatmapMoveHandler = {
 
         var latlon = opts.rc.unproject([floored_x, floored_y]);
 
-        var lat = latlon.lat.toFixed(5);
-        var lon = latlon.lng.toFixed(5);;
+        var lat = parseFloat(latlon.lat.toFixed(5));
+        var lon = parseFloat(latlon.lng.toFixed(5));
 
         Meteor.call('handleMove', {
           lat: lat,

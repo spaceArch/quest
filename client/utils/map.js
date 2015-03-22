@@ -134,6 +134,10 @@ MAP = {
 
     var heatmap_data = image.heatmap_data;
 
+    if(!heatmap_data) {
+      return;
+    }
+
     var cfg = {
       "radius": 2,
       "maxOpacity": .8,
@@ -147,6 +151,8 @@ MAP = {
     var heatmapLayer = new HeatmapOverlay(cfg);
 
     MAP._map.addLayer(heatmapLayer);
+
+    console.log(heatmap_data);
 
     heatmapLayer.setData({
       max: 8,
