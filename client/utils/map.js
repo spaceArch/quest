@@ -2,6 +2,12 @@ MAP = {
   _map: null,
   _rc: null,
   _moveCallback: null,
+  _circleStyle: {
+    color: '#e74c3c',
+    weight: 4,
+    opacity: 0.9,
+    fill: false
+  },
 
   initMap: function(image, attribution){
     var map_el = document.querySelector('.map');
@@ -48,5 +54,54 @@ MAP = {
 
   onMoved: function(callback){
     MAP._moveCallback = callback;
-  }
+  },
+
+  initDrawControls: function(){
+    // Initialise the FeatureGroup to store editable layers
+    // var drawnItems = new L.FeatureGroup();
+    // MAP._map.addLayer(drawnItems);
+
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    var drawControl = new L.Control.Draw({
+      position: 'bottomright',
+      edit: false,
+      draw: {
+        polygon: false,
+        polyline: false,
+        rectangle: false,
+        marker: false,
+        circle: {
+          shapeOptions: MAP._circleStyle,
+          showRadius: false
+        }
+      }
+    });
+    MAP._map.addControl(drawControl);
+
+    MAP._map.on('draw:created', function (e) {
+      var type = e.layerType,
+          layer = e.layer;
+
+      layer.bindPopup('A popup!');
+
+      // Do whatever else you need to. (save to db, add to map etc)
+      map.addLayer(layer);
+      GEOJSON = layer.toGeoJSON()
+      GEOJSON.properties.radius = layer.getRadius()
+      MAP._drawCallback(GEOJSON);
+  });
+  },
+
+  onDrawed: function(callback){
+    MAP._drawCallback = callback;
+  },
+
+  putFinding: function(geojson){
+    L.geoJson(JSON.parse(geojson),{
+      pointToLayer: function (feature, latlng) {
+          circle =  L.circle(latlng, feature.properties.radius, MAP._circleStyle);
+          return circle;
+      }
+    }).addTo(MAP._map);
+  },
 }

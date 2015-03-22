@@ -44,4 +44,23 @@ initMap = function(){
     history.pushState({}, "", '/quest/' + quest_id + '/' + zoom + '/' + image.name + '/' + x + '/' + y);
   });
   MAP.applyFilters()
+
+  // drawing only for registered
+  if(Meteor.user().profile) {
+    MAP.initDrawControls()
+    MAP.onDrawed(function(GeoJSON){
+      Meteor.call('addFinding', {
+        geojson: JSON.stringify(GeoJSON),
+        quest_id: quest_id,
+        file_name: img.name
+      });
+    });
+  }
+
+  // load findings
+  Findings.find({quest_id: quest_id, file_name: img.name})
+    .fetch()
+    .forEach(function(finding){
+      MAP.putFinding(finding.geojson);
+    });
 }

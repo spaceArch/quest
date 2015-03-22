@@ -25,7 +25,7 @@
   "appName": "space_arch",
 
   // Location of app (local directory)
-  "app": "/home/nd0ut/workspace/quest/",
+  "app": "/Users/user/proj/quest/",
 
   // Configure environment
   "env": {
