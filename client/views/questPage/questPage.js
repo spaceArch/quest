@@ -6,4 +6,11 @@ Template.questPage.helpers({
 
 Template.questPage.rendered = function() {
   UIRepo.changeContentView(false);
+
+  $('#tab-nav a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  });
 };
+
+
