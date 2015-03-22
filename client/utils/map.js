@@ -149,10 +149,9 @@ MAP = {
     };
 
     var heatmapLayer = new HeatmapOverlay(cfg);
+    window.heatmapLayer = heatmapLayer;
 
     MAP._map.addLayer(heatmapLayer);
-
-    console.log(heatmap_data);
 
     setTimeout(function() {
       heatmapLayer.setData({
