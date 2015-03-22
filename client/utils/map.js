@@ -30,6 +30,7 @@ MAP = {
       attribution: attribution
     })
     layer.addTo(map);
+    MAP._img_layer = layer;
     LAYER = layer;
     MAP._map = map;
     movedHandler = function(){
@@ -83,15 +84,31 @@ MAP = {
 
     MAP._map.on('draw:created', function (e) {
       var type = e.layerType,
-          layer = e.layer;
+          layer = e.layer,
+          point = MAP._rc.project(e.layer.getLatLng()),
+          x = Math.round(point.x),
+          y = Math.round(point.y),
+          zoom = MAP._map.getZoom(),
+          preview_point = e.target.getPixelOrigin();
+
+      preview_point = preview_point.divideBy(Math.pow(2,zoom+4)).round();
+      preview_point.z = zoom-1;
+      var tileUrl = MAP._img_layer.getTileUrl(preview_point);
 
       layer.bindPopup('A popup!');
 
       // Do whatever else you need to. (save to db, add to map etc)
       map.addLayer(layer);
-      GEOJSON = layer.toGeoJSON()
-      GEOJSON.properties.radius = layer.getRadius()
-      MAP._drawCallback(GEOJSON);
+      GEOJSON = layer.toGeoJSON();
+      GEOJSON.properties.radius = layer.getRadius();
+      // debugger
+      MAP._drawCallback({
+        geojson: GEOJSON,
+        preview: tileUrl,
+        x: x,
+        y: y,
+        zoom: zoom
+      });
   });
   },
 

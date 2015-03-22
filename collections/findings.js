@@ -17,7 +17,7 @@ Meteor.methods({
       throw new Meteor.Error(401, "You need to login");
 
     var finding = _.extend(
-      _.pick(finding, 'geojson', 'quest_id', 'file_name'),
+      _.pick(finding, 'geojson', 'quest_id', 'file_name', 'preview', 'x', 'y', 'zoom' ),
       {
         created_at: new Date().getTime(),
         autor_id: Meteor.userId()

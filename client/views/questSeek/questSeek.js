@@ -13,7 +13,10 @@ Template.questSeek.rendered = function() {
 
 Template.questSeek.helpers({
   pageId: function () {
-    return Session.get('questId');
+    id = '' + Session.get('questId');
+    id += Session.get('image_name');
+    id += Session.get('currentFinding');
+    return id;
   }
 });
 
@@ -59,20 +62,24 @@ initMap = function(){
   // drawing only for registered
   if(Meteor.user().profile) {
     MAP.initDrawControls()
-    MAP.onDrawed(function(GeoJSON){
+    MAP.onDrawed(function(data){
       Meteor.call('addFinding', {
-        geojson: JSON.stringify(GeoJSON),
+        geojson: JSON.stringify(data.geojson),
         quest_id: quest_id,
-        file_name: img.name
+        file_name: img.name,
+        preview: data.preview,
+        x: data.x,
+        y: data.y,
+        zoom: data.zoom
       });
     });
   }
 
+  putCircles();
+
 }
 
-
-// load findings
-Tracker.autorun(function () {
+putCircles = function(){
   var file_name = Session.get('image_name');
   var quest_id = Session.get('questId');
 
@@ -83,4 +90,8 @@ Tracker.autorun(function () {
     .forEach(function(finding){
       MAP.putFinding(finding.geojson);
     });
+}
+// load findings
+Tracker.autorun(function () {
+  putCircles()
 });
