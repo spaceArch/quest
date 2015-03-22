@@ -1,0 +1,15 @@
+<template name='questSeek'>
+  <div class="map"></div>
+  <div class="toggle-sidebar">
+    <i class="fa fa-angle-double-right"></i>
+  </div>
+  <div class="sidebar">
+    <div class="content-section">
+      <h3>{{quest_title}}</h3>
+      <p>{{quest_summary}}</p>
+    </div>
+    <div class="comment-section">
+      {{> commentsBox id=pageId}}
+    </div>
+  </div>
+</template>

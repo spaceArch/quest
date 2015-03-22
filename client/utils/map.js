@@ -18,7 +18,7 @@ MAP = {
     MAP._rc = rc;
 
     // the tile layer containing the image generated with gdal2tiles --leaflet ...
-    url_tmp = 'http://188.226.222.86/store/'+image.name+'/tiles/large/{z}/{x}/{y}.png'
+    url_tmp = '/store/quest_'+image.quest_id+'/tiles/'+image.name+'/{z}/{x}/{y}.png'
     var layer = L.tileLayer(url_tmp, {
       noWrap: true,
       attribution: attribution
