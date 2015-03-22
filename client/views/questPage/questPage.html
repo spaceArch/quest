@@ -3,13 +3,13 @@
     <h2 class="center uppercase">{{quest_title}}</h2>
     <div role="tabpanel">
       <ul class="nav nav-pills uppercase" id="tab-nav" role="tablist">
-        <li class="active"><a href="#images-tab">Images</a></li>
+        <li class="active"><a href="#emmission-tab">Mission control</a></li>
+        <li><a href="#images-tab">Images</a></li>
         <li><a href="#findings-tab">Findings</a></li>
-        <li><a href="#emmission-tab">Emission control</a></li>
       </ul>
 
       <div class="tab-content quest-page">
-        <div role="tabpanel" class="tab-pane fade in active" id="images-tab">
+        <div role="tabpanel" class="tab-pane fade" id="images-tab">
         {{#each quest_images}}
           {{#unless tilesPath}}
              <span class="label label-primary">Loading... Please waiting</span>
@@ -29,7 +29,8 @@
           {{/each}}
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="emmission-tab">
+        <div role="tabpanel" class="tab-pane fade in active" id="emmission-tab">
+          <div class="map"></div>
         </div>
       </div>
     </div>

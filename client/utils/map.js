@@ -9,15 +9,23 @@ MAP = {
     fill: false
   },
 
-  initMap: function(image, attribution){
+  initMap: function(image, attribution, is_heatmap){
     var map_el = document.querySelector('.map');
     // create the map
-    var map = L.map(map_el ,{
-      minZoom: image.minZoom,
-      maxZoom: image.maxZoom,
-      zoomControl: false
-    });
-    new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+    if (!is_heatmap) {
+      var map = L.map(map_el ,{
+        minZoom: image.minZoom,
+        maxZoom: image.maxZoom,
+        zoomControl: false
+      });
+      new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+    }
+    else
+      var map = L.map(map_el ,{
+        minZoom: 2,
+        maxZoom: 2,
+        zoomControl: false
+      });
 
     var rc = new L.RasterCoords(map, [ image.width, image.height]);
     rc.setMaxBounds();
@@ -41,9 +49,13 @@ MAP = {
         MAP._moveCallback(map.getZoom(), x, y);
       }
     };
-    map.on('move', _.debounce(movedHandler, 100));
+    if (!is_heatmap) {
+      map.on('move', _.debounce(movedHandler, 100));
+    }
 
-    MAP.initHeatmap(image.quest_id, image.name);
+    if(is_heatmap) {
+      MAP.initHeatmap(image.quest_id, image.name);
+    }
 
     return map;
   },

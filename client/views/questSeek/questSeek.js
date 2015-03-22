@@ -26,11 +26,14 @@ Template.questSeek.events({
   }
 });
 
-initMap = function(){
+var initMap = function(){
   var quest_id = this.data.quest_id;
   var c = Router.current()
   var all_images = this.data.quest_images;
   var img = _.findWhere(all_images, {name: c.params.file_name});
+  if (!img) {
+    return
+  }
   Session.set('image_name', img.name);
   image = {
     name: img.name,
@@ -79,33 +82,11 @@ initMap = function(){
 
 }
 
-heatmap = function(quest_id, image_name) {
-  var images = QuestRepo.findOne({quest_id: quest_id}).quest_images;
-
-  var image = images.filter(function(img) {
-    return img.name === image_name;
-  })[0];
-
-  var heatmap_data = image.heatmap_data;
-
-  if(heatmap_data) {
-    window.heatmapLayer.setData({
-      max: 8,
-      data: heatmap_data
-    });
-  }
-}
-
 putCircles = function(){
   var file_name = Session.get('image_name');
   var quest_id = Session.get('questId');
 
   if(!file_name && !quest_id) return
-
-
-  if(window.enable_heatmap) {
-    heatmap(quest_id, file_name);
-  }
 
   Findings.find({quest_id: quest_id, file_name: file_name})
     .fetch()
