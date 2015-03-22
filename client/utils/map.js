@@ -139,7 +139,7 @@ MAP = {
     }
 
     var cfg = {
-      "radius": 2,
+      "radius": 10,
       "maxOpacity": .8,
       "scaleRadius": true,
       "useLocalExtrema": true,
@@ -154,9 +154,11 @@ MAP = {
 
     console.log(heatmap_data);
 
-    heatmapLayer.setData({
-      max: 8,
-      data: heatmap_data
-    });
+    setTimeout(function() {
+      heatmapLayer.setData({
+        max: 8,
+        data: heatmap_data
+      });
+    }, 2000);
   }
 }
