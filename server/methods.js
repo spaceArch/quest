@@ -1,60 +1,55 @@
 Meteor.methods({
-  processImages: function(quest) {
-    var space = Meteor.npmRequire('space_lib');
+  handleMove: function(info) {
+    try {
 
-    Meteor.wrapAsync(quest.quest_images.forEach, quest.quest_images)(function(image) {
-      Meteor.wrapAsync(space.createThumb(quest.quest_id, image.name).then)(function(preview) {
-        try {
-          var q = QuestRepo.findOne({quest_id: quest.quest_id});
-          var images = q.quest_images;
+      var q = QuestRepo.findOne({quest_id: info.quest_id});
+      var images = q.quest_images;
 
-          images = images.map(function(img) {
-            if(img.name != image.name) {
-              return img;
-            }
-
-            img.previewPath = space.getThumbPath(quest.quest_id, image.name);
-            return img;
-          });
-
-          Quests.update(q._id, {
-            $set: {
-              quest_images: images
-            }
-          });
+      images = Meteor.wrapAsync(images.map, images)(function(img) {
+        if(img.name != info.image) {
+          return img;
         }
-        catch(e) {
-          console.log(e);
+
+        console.log(img);
+
+        if(!img.heatmap_data) {
+          img.heatmap_data = [];
         }
-      })
+        else {
+          var record;
 
-      Meteor.wrapAsync(space.tile(quest.quest_id, image.name).then)(function(info) {
-        try {
-          var q = QuestRepo.findOne({quest_id: quest.quest_id})
-          var images = q.quest_images;
-
-          images = images.map(function(img) {
-            if(img.name != image.name) {
-              return img;
-            }
-
-            img.height = info.height;
-            img.width = info.width;
-            img.maxZoom = info.maxZoom;
-            img.tilesPath = space.getTilesPath(quest.quest_id, image.name);
-            return img;
+          var match = Meteor.wrapAsync(img.heatmap_data.filter, img.heatmap_data)(function(r) {
+            return (r.lat === info.lat && r.lng === info.lon)
           });
 
-          Quests.update(q._id, {
-            $set: {
-              quest_images: images
-            }
-          });
+          if(match) {
+            record = match[0];
+          }
+
+          if(!record) {
+            img.heatmap_data.push({
+              lat: info.lat,
+              lng: info.lon,
+              count: 1
+            });
+          }
+          else {
+            record.count = record.count + 1;
+          }
         }
-        catch(e) {
-          console.log(e);
+
+        return img;
+      });
+
+      Quests.update({quest_id: info.quest_id}, {
+        $set: {
+          quest_images: images
         }
       });
-    });
+
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
 })

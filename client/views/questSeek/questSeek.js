@@ -41,8 +41,18 @@ initMap = function(){
 
   MAP.panTo(c.params.zoom || img.maxZoom, c.params.x || image.width/2, c.params.y || image.height/2 );
 
+  var rc = new L.RasterCoords(map, [ image.width, image.height]);
+
   MAP.onMoved(function(zoom,x,y){
     history.pushState({}, "", '/quest/' + quest_id + '/' + zoom + '/' + image.name + '/' + x + '/' + y);
+    HeatmapMoveHandler.handle({
+      zoom: zoom,
+      x: x,
+      y: y,
+      image: image.name,
+      quest_id: quest_id,
+      rc: rc
+    });
   });
   MAP.applyFilters()
 

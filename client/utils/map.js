@@ -41,6 +41,9 @@ MAP = {
       }
     };
     map.on('move', _.debounce(movedHandler, 100));
+
+    MAP.initHeatmap(image.quest_id, image.name);
+
     return map;
   },
 
@@ -104,4 +107,33 @@ MAP = {
       }
     }).addTo(MAP._map);
   },
+
+  initHeatmap: function(quest_id, image_name) {
+    var images = Quests.findOne({quest_id: quest_id}).quest_images;
+
+    var image = images.filter(function(img) {
+      return img.name === image_name;
+    })[0];
+
+    var heatmap_data = image.heatmap_data;
+
+    var cfg = {
+      "radius": 2,
+      "maxOpacity": .8,
+      "scaleRadius": true,
+      "useLocalExtrema": true,
+      latField: 'lat',
+      lngField: 'lng',
+      valueField: 'count'
+    };
+
+    var heatmapLayer = new HeatmapOverlay(cfg);
+
+    MAP._map.addLayer(heatmapLayer);
+
+    heatmapLayer.setData({
+      max: 8,
+      data: heatmap_data
+    });
+  }
 }
