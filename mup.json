@@ -29,7 +29,7 @@
 
   // Configure environment
   "env": {
-    "PORT": 80,
+    "PORT": 3000,
     "ROOT_URL": "http://188.226.222.86",
     "SPACE_ARCH_PATH": "/www/space_arch"
   },
