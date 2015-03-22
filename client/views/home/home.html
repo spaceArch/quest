@@ -1,9 +1,11 @@
 <template name='home'>
   <div class="content-wrapper">
-    <h2 class="center">Welcome to spaceArch!</h2>
-    
+    <h2 class="center">Here are your quests</h2>
+
+    <a href="{{pathFor 'addQuest'}}" class="btn btn-primary btn-lg">Create new quest</a>
+
     {{#each questsList}}
       {{> questItem}}
     {{/each}}
-  </div>  
+  </div>
 </template>
