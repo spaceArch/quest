@@ -13,7 +13,7 @@ Meteor.methods({
               return img;
             }
 
-            img.preview = preview;
+            img.previewPath = space.getThumbPath(quest.quest_id, image.name);
             return img;
           });
 
@@ -42,7 +42,6 @@ Meteor.methods({
             img.width = info.width;
             img.maxZoom = info.maxZoom;
             img.tilesPath = space.getTilesPath(quest.quest_id, image.name);
-            img.previewPath = space.getThumbPath(quest.quest_id, image.name);
             return img;
           });
 
