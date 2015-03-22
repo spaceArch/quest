@@ -8,32 +8,28 @@
         <li><a href="#emmission-tab">Emission control</a></li>
       </ul>
 
-      <br>
-
-      <div class="tab-content">
+      <div class="tab-content quest-page">
         <div role="tabpanel" class="tab-pane fade in active" id="images-tab">
         {{#each quest_images}}
           {{#unless tilesPath}}
-            loading...
-            {{>spinner}}
+             <span class="label label-primary">Loading... Please waiting</span>
           {{/unless}}
 
           <h4 class="image_name">{{name}}</h4>
           <a class="image_preview" href="{{pathFor 'questSeek' quest_id=../quest_id zoom=maxZoom file_name=name x=0 y=0}}">
             <img src="/{{previewPath}}" alt>
           </a>
+          <br>
         {{/each}}
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="findings-tab">
-          <p>findings</p>
           {{#each findings}}
             {{>finding}}
           {{/each}}
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="emmission-tab">
-          <p>emmission</p>
         </div>
       </div>
     </div>

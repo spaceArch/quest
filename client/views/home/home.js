@@ -17,5 +17,8 @@ Template.home.rendered = function() {
 Template.home.helpers({
   questsList: function () {
     return QuestRepo.findAll();
-  }
+  },
+  titlePage: function () {
+    return Session.get('pageName');
+  },
 });
