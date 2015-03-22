@@ -1,8 +1,10 @@
 <template name='questPage'>
+  <div class="content-wrapper">
   {{#each quest_images}}
-    <h3>{{name}}</h3>
-    <a href="{{pathFor 'questSeek' quest_id=../quest_id zoom=maxZoom file_name=name x=0 y=0}}">
+    <h2 class="image_name">{{name}}</h2>
+    <a class="image_preview" href="{{pathFor 'questSeek' quest_id=../quest_id zoom=maxZoom file_name=name x=0 y=0}}">
       <img src="/{{previewPath}}" alt="">
     </a>
   {{/each}}
+  </div>
 </template>
