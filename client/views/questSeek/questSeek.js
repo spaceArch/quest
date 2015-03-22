@@ -28,6 +28,7 @@ initMap = function(){
   var c = Router.current()
   var all_images = this.data.quest_images;
   var img = _.findWhere(all_images, {name: c.params.file_name});
+  Session.set('image_name', img.name);
   image = {
     name: img.name,
     width: img.width,
@@ -57,10 +58,19 @@ initMap = function(){
     });
   }
 
-  // load findings
-  Findings.find({quest_id: quest_id, file_name: img.name})
+}
+
+
+// load findings
+Tracker.autorun(function () {
+  var file_name = Session.get('image_name');
+  var quest_id = Session.get('questId');
+
+  if(!file_name && !quest_id) return
+
+  Findings.find({quest_id: quest_id, file_name: file_name})
     .fetch()
     .forEach(function(finding){
       MAP.putFinding(finding.geojson);
     });
-}
+});
