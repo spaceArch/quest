@@ -1,13 +1,17 @@
 <template name='questItem'>
-  <div class="quest-item row">
-    <div class="col-md-12 quest-item__title">
-      <a href="{{pathFor 'questPage' quest_id=this.quest_id }}">{{quest_title}}</a>
-    </div>
-    <div class="col-md-12 quest-item__summary">
-      {{quest_summary}}
-    </div>
-    <div class="col-md-12 quest-item__datetime">
-      <i class="fa fa-calendar"></i> {{getDateTime created_at}}
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail quest-item">      
+      <div class="caption">
+        <div class="col-md-12 quest-item__title">
+          <a href="{{pathFor 'questPage' quest_id=this.quest_id }}">{{quest_title}}</a>
+        </div>
+        <div class="col-md-12 quest-item__summary">
+          {{quest_summary}}
+        </div>        
+        <div class="col-md-12 quest-item__datetime">
+          <i class="fa fa-calendar"></i> {{getDateTime created_at}}
+        </div>
+      </div>
     </div>
   </div>
 </template>
