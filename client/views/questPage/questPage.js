@@ -1,6 +1,10 @@
 Template.questPage.helpers({
   findings: function(){
     return Findings.find({quest_id: this.quest_id});
+  },
+
+    is_grid_show: function(){
+    Session.get('is_grid') ? 'with_grid' : '';
   }
 });
 
