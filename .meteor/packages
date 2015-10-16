@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 coffeescript
 mizzao:bootstrap-3
 jquery
@@ -20,8 +19,23 @@ tomi:upload-jquery
 tomi:upload-server
 arkham:comments-ui
 meteorhacks:npm
-npm-container
 iamthemuffinman:bootstrap-darkly
 lauricio:less-autoprefixer
 fuatsengul:leaflet
 mrt:jquery-masonry
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+
+
+npm-container

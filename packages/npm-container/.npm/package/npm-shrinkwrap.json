@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "space_lib": {
-      "version": "https://github.com/spaceArch/space_lib/archive/46143f23c3a3e92242cc821d2078776ae7c6c7a7.tar.gz",
+      "version": "https://github.com/spaceArch/space_lib/archive/0ab5d0437b1882f262d4677aa33b24b8e9d513f6.tar.gz",
       "dependencies": {
         "image-size": {
           "version": "0.3.5"
@@ -18,10 +18,10 @@
           "version": "0.1.3"
         },
         "promise": {
-          "version": "6.1.0",
+          "version": "7.0.4",
           "dependencies": {
             "asap": {
-              "version": "1.0.0"
+              "version": "2.0.3"
             }
           }
         },
