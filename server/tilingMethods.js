@@ -3,7 +3,8 @@ Meteor.methods({
     var space = Meteor.npmRequire('space_lib');
 
     Meteor.wrapAsync(quest.quest_images.forEach, quest.quest_images)(function(image) {
-      Meteor.wrapAsync(space.createThumb(quest.quest_id, image.name).then)(function(preview) {
+      var p = space.createThumb(quest.quest_id, image.name);
+      Meteor.wrapAsync(p.then, p)(function(preview) {
         try {
           var q = QuestRepo.findOne({quest_id: quest.quest_id});
           var images = q.quest_images;
