@@ -29,7 +29,8 @@ Meteor.methods({
         }
       })
 
-      Meteor.wrapAsync(space.tile(quest.quest_id, image.name).then)(function(info) {
+      var p = space.tile(quest.quest_id, image.name);
+      Meteor.wrapAsync(p.then, p)(function(info) {
         try {
           var q = QuestRepo.findOne({quest_id: quest.quest_id})
           var images = q.quest_images;
