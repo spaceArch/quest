@@ -17,7 +17,7 @@ MAP = {
     var viewport_h = $map.height();
 
     MAP._deltapan_x = 300 * ~~(viewport_w / 300);
-    MAP._deltapan_y = 300 * ~~(viewport_y / 300);
+    MAP._deltapan_y = 300 * ~~(viewport_h / 300);
   },
 
   initMap: function(image, attribution, is_heatmap){
