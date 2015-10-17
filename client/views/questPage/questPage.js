@@ -37,31 +37,4 @@ var initMap = function(){
   map = MAP.initMap(image, this.data.quest_title, true);
 
   MAP.panTo(2,  image.width/2, image.height/2 );
-
-  heatmap();
 }
-
-heatmap = function() {
-  var quest_id = Session.get('questId')
-  var image_name = Session.get('image_name')
-  if(!image_name && !quest_id) return
-  var images = QuestRepo.findOne({quest_id: quest_id}).quest_images;
-
-  var image = images.filter(function(img) {
-    return img.name === image_name;
-  })[0];
-
-  var heatmap_data = image.heatmap_data;
-
-  if(heatmap_data) {
-    window.heatmapLayer.setData({
-      max: 8,
-      data: heatmap_data
-    });
-  }
-}
-
-// load findings
-Meteor.setInterval(function () {
-  heatmap();
-}, 250);
