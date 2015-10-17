@@ -8,16 +8,45 @@ MAP = {
     opacity: 0.9,
     fill: false
   },
+  _deltapan_x: 300,
+  _deltapan_y: 300,
 
-  initMap: function(image, attribution){
+  _onResize: function(){
+    var $map = $('.map');
+    var viewport_w = $map.width();
+    var viewport_h = $map.height();
+
+    MAP._deltapan_x = 300 * ~~(viewport_w / 300);
+    MAP._deltapan_y = 300 * ~~(viewport_y / 300);
+  },
+
+  initMap: function(image, attribution, is_heatmap){
     var map_el = document.querySelector('.map');
+    // create the map
+    if (!is_heatmap) {
+      var map = L.map(map_el ,{
+        minZoom: image.minZoom,
+        maxZoom: image.maxZoom,
+        zoomControl: false,
+        keyboard:false,
 
-    var map = L.map(map_el ,{
-      minZoom: image.minZoom,
-      maxZoom: image.maxZoom,
-      zoomControl: false
-    });
-    new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+      });
+      new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
+      document.onkeydown = function(e){
+        switch(e.keyCode) {
+          case 38: map.panBy( [ 0, -MAP._deltapan_y ]); break;
+          case 40: map.panBy( [ 0, MAP._deltapan_y ]); break;
+          case 37: map.panBy( [ -MAP._deltapan_x, 0 ]); break;
+          case 39: map.panBy( [ MAP._deltapan_x, 0 ]); break;
+        }
+      };
+    }
+    else
+      var map = L.map(map_el ,{
+        minZoom: 2,
+        maxZoom: 2,
+        zoomControl: false
+      });
 
     var rc = new L.RasterCoords(map, [ image.width, image.height]);
     rc.setMaxBounds();
@@ -33,6 +62,7 @@ MAP = {
     MAP._img_layer = layer;
     LAYER = layer;
     MAP._map = map;
+
 
     return map;
   },
