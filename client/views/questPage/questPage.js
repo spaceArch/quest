@@ -42,7 +42,6 @@ var initMap = function(){
 }
 
 heatmap = function() {
-  console.log('AAAAAAAAA')
   var quest_id = Session.get('questId')
   var image_name = Session.get('image_name')
   if(!image_name && !quest_id) return

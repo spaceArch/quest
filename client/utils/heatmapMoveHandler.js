@@ -5,9 +5,6 @@ HeatmapMoveHandler = {
       var floored_y = Math.floor(opts.y/100)*100
 
       if(Session.get('last_x') != floored_x || Session.get('last_y') != floored_y) {
-        console.log('send move');
-        console.log(floored_x, floored_y);
-
         var latlon = opts.rc.unproject([floored_x, floored_y]);
 
         var lat = parseFloat(latlon.lat.toFixed(5));

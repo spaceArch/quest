@@ -10,8 +10,6 @@ Meteor.methods({
           return img;
         }
 
-        console.log(img);
-
         if(!img.heatmap_data) {
           img.heatmap_data = [];
         }
