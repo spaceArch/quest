@@ -68,9 +68,12 @@ MAP = {
         var point = rc.project(map.getCenter());
         var x = Math.round(point.x);
         var y = Math.round(point.y);
+        console.log('x,y', x,y);
         MAP._moveCallback(map.getZoom(), x, y);
       }
     };
+
+    map.on('move', _.debounce(movedHandler, 100));
 
     return map;
   },

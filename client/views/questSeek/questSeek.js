@@ -51,14 +51,6 @@ var initMap = function(){
 
   MAP.onMoved(function(zoom,x,y){
     history.pushState({}, "", '/quest/' + quest_id + '/' + zoom + '/' + image.name + '/' + x + '/' + y);
-    HeatmapMoveHandler.handle({
-      zoom: zoom,
-      x: x,
-      y: y,
-      image: image.name,
-      quest_id: quest_id,
-      rc: rc
-    });
   });
   MAP.applyFilters()
 
