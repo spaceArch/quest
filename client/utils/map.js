@@ -22,6 +22,8 @@ MAP = {
 
   initMap: function(image, attribution, is_heatmap){
     var map_el = document.querySelector('.map');
+    window.onresize = MAP._onResize();
+    MAP._onResize();
     // create the map
     if (!is_heatmap) {
       var map = L.map(map_el ,{
