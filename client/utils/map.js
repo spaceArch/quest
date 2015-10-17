@@ -63,6 +63,14 @@ MAP = {
     LAYER = layer;
     MAP._map = map;
 
+    movedHandler = function(){
+      if(MAP._moveCallback) {
+        var point = rc.project(map.getCenter());
+        var x = Math.round(point.x);
+        var y = Math.round(point.y);
+        MAP._moveCallback(map.getZoom(), x, y);
+      }
+    };
 
     return map;
   },
